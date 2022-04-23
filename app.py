@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def graf():
-    with open('bar.json','r') as bar_file:
-        data = json.load(bar_file)
+    with open('datos.json','r') as datos_file:
+        data = json.load(datos_file)
         
     #ejemplo grafico de barras
     bar_chart = pygal.Bar()
