@@ -1,5 +1,7 @@
-import pygal
-import json
+import matplotlib.pyplot as plt
+import pandas as pd 
+import csv
+
 
 from flask import Flask, render_template
 
@@ -8,31 +10,32 @@ app = Flask(__name__)
 
 @app.route('/')
 def graf():
-    with open('datos.json','r') as datos_file:
-        data = json.load(datos_file)
-        
-    #ejemplo grafico de barras
-    bar_chart = pygal.Bar()
-    bar_chart.title = "Grafico de barras"
-    mark_list = [x['mark'] for x in data]
-    bar_chart.add('ejemplo',mark_list)
-    bar_chart.x_labels = [x['year'] for x in data]
-    bar_chart.render_to_file('static/images/bar_chart.svg')
-    bar_img = 'static/images/bar_chart.svg'
+    plt.style.use('ggplot')
 
-    #ejemplo grafico de linea
+    list_indicadores = pd.read_csv('indicador.csv', index_col=None)
 
-    line_chart = pygal.Line() 
-  
-    line_chart.title = 'Grafico de lineas'
-    line_chart.add('ejemplo',mark_list)
-    line_chart.x_labels = [x['year'] for x in data]
-    line_chart.render_to_file('static/images/line_chart.svg')
-    line_img = 'static/images/line_chart.svg'
+    print(list_indicadores)
 
+    #grafico de Barras General
 
+    list_indicadores.plot(x = 'nombre_indicador', y = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'], kind='bar' ,title = 'Progreso indicadores Mes a Mes')
+    plt.gcf().subplots_adjust(bottom= 0.20)
+    plt.xlabel('Indicadores')
+    plt.ylabel('Progreso')
+    plt.xticks(rotation = 45, horizontalalignment = 'center')
+    plt.savefig('static/images/barG_chart.svg')
+    barG_img = 'static/images/barG_chart.svg'
 
-    return render_template('index.html',bar_url = bar_img, line_url = line_img)
+    #grafico de Barras 
+
+    list_indicadores.plot(x = 'nombre_indicador', y = 'Enero' , kind='bar' ,title = 'Progreso indicadores Mes de Enero')
+    plt.gcf().subplots_adjust(bottom= 0.20)
+    plt.xlabel('Indicadores')
+    plt.ylabel('Progreso')
+    plt.xticks(rotation = 45, horizontalalignment = 'center')
+    plt.savefig('static/images/barE_chart.svg')
+    barE_img = 'static/images/barE_chart.svg'
+    return render_template('index.html', barG_url = barG_img, barE_url = barE_img)
 
 
 
