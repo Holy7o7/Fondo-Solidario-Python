@@ -14,7 +14,7 @@ def graf():
 
     list_indicadores = pd.read_csv('indicador.csv', index_col=None)
 
-    print(list_indicadores)
+    #print(list_indicadores)
 
     #grafico de Barras General
 
@@ -26,7 +26,7 @@ def graf():
     plt.savefig('static/images/barG_chart.svg')
     barG_img = 'static/images/barG_chart.svg'
 
-    #grafico de Barras 
+    #grafico de Barras mes enero
 
     list_indicadores.plot(x = 'nombre_indicador', y = 'Enero' , kind='bar' ,title = 'Progreso indicadores Mes de Enero')
     plt.gcf().subplots_adjust(bottom= 0.20)
@@ -36,8 +36,6 @@ def graf():
     plt.savefig('static/images/barE_chart.svg')
     barE_img = 'static/images/barE_chart.svg'
     return render_template('index.html', barG_url = barG_img, barE_url = barE_img)
-
-
 
 if __name__ == '__main__':
    app.run(debug = True)
