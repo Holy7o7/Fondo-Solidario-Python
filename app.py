@@ -15,8 +15,8 @@ def graf():
 
     #grafico de Barras mes enero
 
-    graficoG = graficos("Progreso indicadores enero", "Enero")
-    barE_img = graficoG.crearGrafico()
+    graficoE = graficos("Progreso indicadores Abril", "Abril")
+    barE_img = graficoE.crearGrafico()
 
     return render_template('index.html', barG_url = barG_img, barE_url = barE_img)
 

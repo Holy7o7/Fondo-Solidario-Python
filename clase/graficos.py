@@ -13,6 +13,7 @@ class graficos:
         if(mes == "general"):
             column = self.indicadores.columns.values
             mes = np.delete(column,0)
+            
         self.mes = mes
 
     def crearGrafico(self):
