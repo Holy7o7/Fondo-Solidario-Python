@@ -22,4 +22,6 @@ class graficos:
         plt.xlabel(self.ejeX)
         plt.ylabel(self.ejeY)
         plt.xticks(rotation = 45, horizontalalignment = 'center')
-        plt.savefig('static/images/barG_chart.svg')
+        ruta = 'static/images/' + self.titulo + '.svg'
+        plt.savefig(ruta)
+        return ruta
