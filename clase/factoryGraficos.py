@@ -1,9 +1,17 @@
+from collections import abc
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import csv 
+import csv
+from abc import ABCMeta, abstractstaticmethod
 
-class graficos:
+class Igrafico(metaclass = ABCMeta):
+
+    @abstractstaticmethod
+    def crearGrafico():
+        pass
+
+class GraficoBarra(Igrafico):
     def __init__(self, titulo, mes):
         self.indicadores = pd.read_csv('indicador.csv', index_col=None)
         self.ejeX = "Indicadores"
@@ -26,3 +34,14 @@ class graficos:
         ruta = 'static/images/' + self.titulo + '.svg'
         plt.savefig(ruta)
         return ruta
+
+class GraficoFactory():
+    
+    @staticmethod
+    def get_grafico(graficotype, titulo, mes):
+        try:
+            if graficotype == "GraficoBarra":
+                return GraficoBarra(titulo, mes)
+            raise AssertionError("Grafico no encontrado :c")
+        except AssertionError as _e:
+            print(_e)
