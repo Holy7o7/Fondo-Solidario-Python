@@ -12,11 +12,12 @@ class Igrafico(metaclass = ABCMeta):
         pass
 
 class GraficoBarra(Igrafico):
-    def __init__(self, titulo, mes):
-        self.indicadores = pd.read_csv('indicador.csv', index_col=None)
-        self.ejeX = "Indicadores"
+    def __init__(self, titulo, mes, nomind):
+        self.indicadores = pd.read_csv('data/' + nomind + '.csv', index_col=None)
+        self.ejeX = "Indicador VS Meta"
         self.ejeY = "Progreso"
         self.titulo = titulo
+       
 
         if(mes == "general"):
             column = self.indicadores.columns.values
@@ -25,8 +26,8 @@ class GraficoBarra(Igrafico):
         self.mes = mes
 
     def crearGrafico(self):
-        plt.style.use('ggplot')
-        self.indicadores.plot(x = 'nombre_indicador', y = self.mes, kind='bar' ,title = self.titulo)
+        plt.style.use('bmh')
+        self.indicadores.plot(x = "nombre_indicador", y = self.mes, kind='bar' ,title = self.titulo)
         plt.gcf().subplots_adjust(bottom= 0.20)
         plt.xlabel(self.ejeX)
         plt.ylabel(self.ejeY)
@@ -38,10 +39,10 @@ class GraficoBarra(Igrafico):
 class GraficoFactory():
     
     @staticmethod
-    def get_grafico(graficotype, titulo, mes):
+    def get_grafico(graficotype, titulo, mes, nomind):
         try:
             if graficotype == "GraficoBarra":
-                return GraficoBarra(titulo, mes)
+                return GraficoBarra(titulo, mes, nomind)
             raise AssertionError("Grafico no encontrado :c")
         except AssertionError as _e:
             print(_e)
