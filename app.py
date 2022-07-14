@@ -21,4 +21,4 @@ def graf():
     return render_template('index.html', barG_url = barG_img, barE_url = barE_img)
 
 if __name__ == '__main__':
-   app.run(host="localhost",port=7000,debug = True)
+   app.run(host= 'localhost' ,port=7000,debug = True)

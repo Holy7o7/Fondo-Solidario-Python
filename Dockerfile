@@ -1,12 +1,12 @@
 FROM ubuntu:20.04
 
+WORKDIR /visualizacion
+
 RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get install -y python3-pip
 
-WORKDIR /app
-
-COPY . /app 
+COPY . /visualizacion 
 
 RUN pip --no-cache-dir install -r requirements.txt
 
